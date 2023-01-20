@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto&display=swap" rel="stylesheet"> 
+		
+	
+	<title>Encriptador Alura</title>
+
+</head>
+	<link rel="stylesheet" href="reset.css">
+	<link rel="stylesheet" href="estilo.css">
+	
+	
+
+<body>
+	
+	<main>
+		<h1>Encriptador Alura</h1>
+		
+		
+	<div align="center" class="Row">
+		
+	
+			<div align="center" class="falsaColumna">
+		    <img src="imagenes/unlock.gif" id="unlock" class="unlock" alt=""/>
+			</div>
+			<div class="wallpaper" align="center" >
+				
+					
+				<script>
+					var borrarcopiado=false;  //Variable para borrar el valor del área de encriptado cuando hay texto encriptado//
+		function validar(texto) {
+			//Esta función regresa true cuando el texto es válido//
+			 var encontrado = true;
+        for(var posicion = 0; posicion < texto.length; posicion++){ 
+         
+			//console.log("iteracion "+posicion+" +" +texto.length);//
+				if (!((texto.charAt(posicion)>='a'&& texto.charAt(posicion)<='z')|| (texto.charAt(posicion)==' '))){
+					encontrado = false;
+					//console.log(posicion+" +");//
+				}
+			
+			
+			}
+			return encontrado;
+		}
+	//console.log (validar("hola como estas"))//
+		
+		function encriptarTexto(){
+			var texto =document.getElementById("textobase").value;
+			var cadenaEncriptada = "";
+			for(var posicion = 0; posicion < texto.length; posicion++){
+                    if (texto.charAt(posicion)== 'e'){
+                        cadenaEncriptada = cadenaEncriptada+"enter"
+                        }else{
+                            if (texto.charAt(posicion)== 'i'){
+                                cadenaEncriptada = cadenaEncriptada+"imes"
+
+                            }else{
+
+                                if (texto.charAt(posicion)== 'a'){
+                                    cadenaEncriptada = cadenaEncriptada+"ai"
+
+                                }else{
+
+                                    if (texto.charAt(posicion)== 'o'){
+                                        cadenaEncriptada = cadenaEncriptada+"ober"
+                                    }else{
+
+                                    if (texto.charAt(posicion)== 'u'){
+                                        cadenaEncriptada = cadenaEncriptada+"ufat"
+                                    }else cadenaEncriptada = cadenaEncriptada+texto.charAt(posicion)
+                                 }
+                                 }
+                             }
+                        }
+
+					}
+			document.getElementById("encriptado").value=cadenaEncriptada;
+			document.getElementById("unlock").style.opacity= "1";
+			document.getElementById("buscador").style.opacity= "0";
+			document.getElementById("error").style.opacity= "0";
+			document.getElementById("error2").style.opacity= "0";
+				return cadenaEncriptada;
+			}
+			
+			
+		function desencriptarLetra(texto, letra, palabrallave){
+			//cadenaDesencriptada.indexOf("enter") me devuelve la casilla donde comienza enter, por lo que debo cortar la palabra "enter" y sustuirla por una "e"; sin embargo, es importante tener en cuenta cuando "enter" es el final de la palabra, porque debe ser tratado como un caso especial.//
+			var cadenaDesencriptada = texto;
+			
+			while((cadenaDesencriptada.indexOf(palabrallave) !== -1) ){
+				if(cadenaDesencriptada.indexOf(palabrallave)+palabrallave.length<cadenaDesencriptada.length-1)	{
+					console.log(cadenaDesencriptada.slice(0,cadenaDesencriptada.indexOf(palabrallave))+" ** "+cadenaDesencriptada.slice(cadenaDesencriptada.indexOf(palabrallave)+palabrallave.length, cadenaDesencriptada.length) )
+					cadenaDesencriptada=cadenaDesencriptada.slice(0,cadenaDesencriptada.indexOf(palabrallave)) + letra
+					+cadenaDesencriptada.slice(cadenaDesencriptada.indexOf(palabrallave)+palabrallave.length, cadenaDesencriptada.length);
+					
+				}else{
+					cadenaDesencriptada=cadenaDesencriptada.slice(0,cadenaDesencriptada.indexOf(palabrallave)) + letra+cadenaDesencriptada.slice(cadenaDesencriptada.indexOf(palabrallave)+palabrallave.length, cadenaDesencriptada.length) ;
+					console.log("te pasaste de rosc "+ cadenaDesencriptada.indexOf(palabrallave)+palabrallave.length)
+				}
+				  	
+				
+				
+				  }
+			return cadenaDesencriptada;
+		}
+			function desencriptarTexto(){
+				var texto =document.getElementById("textobase").value;
+				var cadenaDesencriptada = texto;
+				if((cadenaDesencriptada.indexOf("ai") !== -1)){
+					cadenaDesencriptada=desencriptarLetra(cadenaDesencriptada, "a", "ai");
+				}
+				
+				if((cadenaDesencriptada.indexOf("enter") !== -1)){
+					cadenaDesencriptada=desencriptarLetra(cadenaDesencriptada, "e", "enter");
+				}
+				if((cadenaDesencriptada.indexOf("imes") !== -1)){
+					cadenaDesencriptada=desencriptarLetra(cadenaDesencriptada, "i", "imes");
+				}
+				if((cadenaDesencriptada.indexOf("ober") !== -1)){
+					cadenaDesencriptada=desencriptarLetra(cadenaDesencriptada, "o", "ober");
+				}
+				if((cadenaDesencriptada.indexOf("ufat") !== -1)){
+					cadenaDesencriptada=desencriptarLetra(cadenaDesencriptada, "u", "ufat");
+				}
+				document.getElementById("encriptado").value=cadenaDesencriptada;
+				return cadenaDesencriptada;
+			}
+		
+		//console.log(encriptar("pollo pepe"))//
+		//console.log(desencriptar("yai choberlenter chaingober chimeslaingober"));//
+			function copiarTexto(){
+				var texto= document.getElementById("encriptado").value+"";
+				navigator.clipboard.writeText(texto);
+				borrarcopiado= true;
+				
+			}
+					function borrarypegar(){  //Esta función sirve para borrar el texto del área encriptar, copia y pega el valor del área de textobase//
+						if(borrarcopiado){
+								document.getElementById("textobase").value=document.getElementById("encriptado").value;
+								document.getElementById("encriptado").value="";
+						   }
+						else{
+							document.getElementById("textobase").value="";
+						}
+						borrarcopiado=false;
+					}
+				function limpieza(){
+					document.getElementById("textobase").value="Ingrese el texto aquí";
+					document.getElementById("encriptado").value="";
+					document.getElementById("unlock").style.opacity= "0";
+					document.getElementById("buscador").style.opacity= "1";
+					document.getElementById("error").style.opacity= "1";
+					document.getElementById("error2").style.opacity= "1";
+				}		
+					
+	</script>
+						<textarea name="textarea" class="areaencriptar" id="textobase"  onClick="borrarypegar()" >Ingrese el texto aquí</textarea>
+						
+				<div> <h6 class="informacion">ⓘSolo minúsculas y sin acentos</h6></div>
+					<div align="center">
+						<button class="encriptar" name="Encriptar" input="encriptador" autofocus onClick="encriptarTexto()"> Encriptar</button>
+						<button class="desencriptar" name="Desencriptar" input="desencriptar" onClick="desencriptarTexto()">Desencriptar </button>
+						
+					</div>
+					
+						<textarea name="textarea" class="areadesencriptar" id="encriptado"></textarea>
+						
+					
+					<div align="center">
+						<button class="copia" name="Desencriptar" input="copia" onClick="copiarTexto()">Copiar </button>
+						<button class="limpiar" name="limpiar" input="limpia" onClick="limpieza()">Limpiar </button>
+					</div>
+				
+			
+			</div>
+				
+			<div align="center" class="falsaColumna">
+				<img class= "busca"  src="busq.png" id= "buscador" alt="imagen de busqueda">
+				<div class="instrucciones"><label id="error">Ningún mensaje fue encontrado</label> </div>
+				<div class="instruccionesL" ><label id="error2"> Ingrese el texto que deseas encriptar o desencriptar</label></div>
+				
+			</div>
+		</div>
+	</main>
+	
+	<footer>
+			<img class="alura-logo" src="alura.jpg" alt="Logo de Alura">
+			<p class="copyright">&copy Copyright Encriptador Eva Lopez Alura One G4 - 2023</p>	
+	</footer>
+	
+		
+</body>
+</html>
